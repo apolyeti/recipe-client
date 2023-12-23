@@ -15,11 +15,14 @@
     "@mui/icons-material": "^5.15.1",
     "@mui/joy": "^5.0.0-beta.19",
     "@mui/material": "^5.15.1",
+    "check-url": "^1.0.0",
     "install": "^0.13.0",
+    "is-valid-http-url": "^1.0.3",
     "next": "14.0.4",
     "npm": "^10.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "@types/node": "^20",
