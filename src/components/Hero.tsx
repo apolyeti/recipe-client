@@ -1,4 +1,5 @@
 import Stack from "@mui/material/Stack"
+import { LinearProgress } from "@mui/material"
 import SearchBar from "@/components/SearchComponent/SearchBar"
 import Heading from "@components/Heading"
 import { useState } from "react"
@@ -21,6 +22,8 @@ export default function Hero() {
         changeQuantity: changeQuantity
     });
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     return (
         <Stack
             direction={"column"}>
@@ -28,15 +31,16 @@ export default function Hero() {
             <div 
                 className="center"
             >
-                <SearchBar recipe={recipe} setRecipe={setRecipe}/>
+                <SearchBar recipe={recipe} setRecipe={setRecipe} setLoading={setLoading}/>
             </div>
+            {loading && <LinearProgress />}
             {recipe.ingredients.length > 0 &&
                 <div className="center">
                     <p className="center">Your recipe:</p>
                     <ul>
                         {recipe.ingredients.map((ingredient, index) => {
                             return (
-                                <li key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</li>
+                                <li key={index}>{ingredient.quantity} {ingredient.name} {ingredient.unit}</li>
                             )
                         }
                         )}

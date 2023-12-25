@@ -8,6 +8,7 @@ import { useState } from 'react';
 interface SearchBarProps {
     recipe: Recipe;
     setRecipe: (recipe: Recipe) => void;
+    setLoading: (loading: boolean) => void;
 }
 
 export default function SearchBar(props: SearchBarProps) {
@@ -22,6 +23,7 @@ export default function SearchBar(props: SearchBarProps) {
         if (isValidUrl(url)) {
             console.log("valid url")
             try {
+                props.setLoading(true);
                 const response = await getIngredients(url);
                 if (response === null) {
                     setNoRecipe(true);
@@ -44,8 +46,10 @@ export default function SearchBar(props: SearchBarProps) {
                     changeQuantity: props.recipe.changeQuantity
                 });
                 console.log(response);
+                props.setLoading(false);
             } catch (error) {
                 setError(true);
+                props.setLoading(false);
                 console.log(error);
             }
         } else {

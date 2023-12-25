@@ -68,9 +68,8 @@ body {
 .heading {
     color: #f2d5cf;
     font-size: 40px;
-    padding: 0px;
     position: absolute;
-    margin-top: 20em;
+    margin-top: 10em;
 }
 
 .topcenter {
