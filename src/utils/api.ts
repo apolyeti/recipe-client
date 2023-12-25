@@ -11,7 +11,6 @@ export const getIngredients = async (url : string) => {
             body: JSON.stringify(reqBody)
         });
         const res = await req.json();
-
         if (res.error) {
             throw new Error(res.error);
         }

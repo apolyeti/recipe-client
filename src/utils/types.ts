@@ -15,4 +15,5 @@ export type Ingredient = {
 
 export type Recipe = {
     ingredients : Ingredient[],
+    changeQuantity : (multiplier : number) => void,
 }

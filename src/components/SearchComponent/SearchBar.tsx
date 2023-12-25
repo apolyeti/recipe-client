@@ -1,16 +1,20 @@
 import SearchButton from "./SearchButton";
 import InputBase from '@mui/material/InputBase';
+import type { Ingredient, Recipe } from '@/utils/types';
 import { Snackbar, Alert } from '@mui/material';
 import { getIngredients } from '@/utils/api';
 import { useState } from 'react';
 
-export default function SearchBar() {
+interface SearchBarProps {
+    recipe: Recipe;
+    setRecipe: (recipe: Recipe) => void;
+}
+
+export default function SearchBar(props: SearchBarProps) {
     // make search button be inside search bar
     const [url, setUrl] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
     const [noRecipe, setNoRecipe] = useState<boolean>(false); // if no recipe found, show error message
-    const [showIngredients, setShowIngredients] = useState<boolean>(false);
-    const [ingredients, setIngredients] = useState({})
 
 
 
@@ -19,6 +23,26 @@ export default function SearchBar() {
             console.log("valid url")
             try {
                 const response = await getIngredients(url);
+                if (response === null) {
+                    setNoRecipe(true);
+                    return;
+                }
+                const ingredients: Ingredient[] = [];
+                // response has field called recipe, which is an array of ingredients
+                // each ingredient has fields: name, quantity, measurement
+                // foreach is not possible on response.recipe because it is not an array
+                for (let i = 0; i < response.recipe.length; i++) {
+                    const ingredient = response.recipe[i];
+                    ingredients.push({
+                        name: ingredient.name,
+                        quantity: ingredient.quantity,
+                        unit: ingredient.measurement
+                    });
+                }
+                props.setRecipe({
+                    ingredients: ingredients,
+                    changeQuantity: props.recipe.changeQuantity
+                });
                 console.log(response);
             } catch (error) {
                 setError(true);
