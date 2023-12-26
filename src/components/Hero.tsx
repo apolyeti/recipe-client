@@ -9,19 +9,26 @@ import type { Recipe } from "@/utils/types"
 
 export default function Hero() {
 
-    function changeQuantity (quantity: number) {
-        const newRecipe = recipe;
-        newRecipe.ingredients.forEach(ingredient => {
-            ingredient.quantity = ingredient.quantity * quantity;
-        })
-        return newRecipe;
-    }
+    // make changequantity function for recipe type
+
     // recipe fields:
     // ingredients: Ingredient[];
 
     const [recipe, setRecipe] = useState<Recipe>({
         ingredients: [],
-        changeQuantity: changeQuantity
+        servingSize: 0,
+        changeQuantity: (newQuantity: number) => {
+            setRecipe({
+                ...recipe,
+                servingSize: newQuantity,
+                ingredients: recipe.ingredients.map((ingredient) => {
+                    return {
+                        ...ingredient,
+                        quantity: ingredient.quantity * newQuantity / recipe.servingSize
+                    }
+                })
+            })
+        }
     });
 
     const [loading, setLoading] = useState<boolean>(false);
