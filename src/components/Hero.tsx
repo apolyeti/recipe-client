@@ -1,9 +1,11 @@
 import Stack from "@mui/material/Stack"
-import { LinearProgress } from "@mui/material"
+import { LinearProgress, Tab } from "@mui/material"
 import SearchBar from "@/components/SearchComponent/SearchBar"
 import Heading from "@components/Heading"
+import RecipeComponent from "@/components/Recipe/Recipe"
 import { useState } from "react"
-import { Recipe, Ingredient } from "@/utils/types"
+import Box from '@mui/material/Box';
+import type { Recipe } from "@/utils/types"
 
 export default function Hero() {
 
@@ -25,28 +27,41 @@ export default function Hero() {
     const [loading, setLoading] = useState<boolean>(false);
 
     return (
-        <Stack
-            direction={"column"}>
+        <>
+        <Box
+            sx={{
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
             <Heading />
-            <div 
-                className="center"
-            >
                 <SearchBar recipe={recipe} setRecipe={setRecipe} setLoading={setLoading}/>
-            </div>
-            {loading && <LinearProgress />}
-            {recipe.ingredients.length > 0 &&
-                <div className="center">
-                    <p className="center">Your recipe:</p>
-                    <ul>
-                        {recipe.ingredients.map((ingredient, index) => {
-                            return (
-                                <li key={index}>{ingredient.quantity} {ingredient.name} {ingredient.unit}</li>
-                            )
-                        }
-                        )}
-                    </ul>
-                </div>
-            }
-        </Stack>
+                {loading && 
+                    <Box sx={{width : "50%"}}>
+                        <Stack direction={"column"}>
+                            <LinearProgress />
+                        </Stack>    
+                    </Box>
+                }
+        </Box>
+                {recipe.ingredients.length > 0 &&
+                    <Box
+                        id="recipe"
+                        sx={{
+                            padding: "2rem",
+                            minHeight: "100vh",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <RecipeComponent Recipe={recipe}/>
+                    </Box>
+                }   
+        </>
     )
 }

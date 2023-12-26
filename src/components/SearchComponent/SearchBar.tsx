@@ -4,6 +4,7 @@ import type { Ingredient, Recipe } from '@/utils/types';
 import { Snackbar, Alert } from '@mui/material';
 import { getIngredients } from '@/utils/api';
 import { useState } from 'react';
+import { TIMEOUT } from "dns";
 
 interface SearchBarProps {
     recipe: Recipe;
@@ -47,6 +48,9 @@ export default function SearchBar(props: SearchBarProps) {
                 });
                 console.log(response);
                 props.setLoading(false);
+                setTimeout(() => {
+                    document.getElementById("recipe")?.scrollIntoView({behavior: "smooth"})
+                }, 50)
             } catch (error) {
                 setError(true);
                 props.setLoading(false);
