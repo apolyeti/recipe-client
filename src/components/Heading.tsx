@@ -7,7 +7,7 @@ export default function Heading() {
                 variant="h1" 
                 className="heading" 
             >
-                Adjust your recipe to your serving size needs
+                adjust your recipe to your serving size needs
             </Typography>
         </div>
     )

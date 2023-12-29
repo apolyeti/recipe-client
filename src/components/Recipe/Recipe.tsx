@@ -48,8 +48,8 @@ export default function Recipe(props: RecipeProps) {
                 direction={"row"}
                 spacing={2}
             >
-            <Typography variant="h3" color="#f2d5cf">
-                Serving Size: 
+            <Typography className="serving">
+                serving size:
             </Typography>
             <InputBase
                 value={originalServing}
@@ -60,6 +60,7 @@ export default function Recipe(props: RecipeProps) {
             />
             </Stack>
             {rows.map((row, index) => {
+                let offset = 0.5;
                 return (
                     <Stack
                         direction={"row"}
@@ -67,10 +68,12 @@ export default function Recipe(props: RecipeProps) {
                         key={index}
                     >
                         {row.map((ingredient) => {
+                            offset+=0.1;
                             return (
                                 <IngredientComponent
                                     ingredient={ingredient}
                                     key={ingredient.name}
+                                    fadeOffset={offset}
                                 />
                             )
                         })}

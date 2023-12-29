@@ -3,6 +3,7 @@ import { LinearProgress, Tab } from "@mui/material"
 import SearchBar from "@/components/SearchComponent/SearchBar"
 import Heading from "@components/Heading"
 import RecipeComponent from "@/components/Recipe/Recipe"
+import Loading from "@/components/Loading"
 import { useState } from "react"
 import Box from '@mui/material/Box';
 import type { Recipe } from "@/utils/types"
@@ -47,9 +48,9 @@ export default function Hero() {
             <Heading />
                 <SearchBar recipe={recipe} setRecipe={setRecipe} setLoading={setLoading}/>
                 {loading && 
-                    <Box sx={{width : "50%"}}>
+                    <Box sx={{width : "45%", padding: "20px"}} >
                         <Stack direction={"column"}>
-                            <LinearProgress />
+                            <Loading />
                         </Stack>    
                     </Box>
                 }

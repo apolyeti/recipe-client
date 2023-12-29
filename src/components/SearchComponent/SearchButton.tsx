@@ -11,7 +11,6 @@ export default function SearchButton(props: SearchButtonProps) {
     return (
         <IconButton
             onClick={props.handleSearch}
-            disabled={props.disabled}
         >
             <AutoAwesomeOutlinedIcon className='searchbutton'/>
         </IconButton>

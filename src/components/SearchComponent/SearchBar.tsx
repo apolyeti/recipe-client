@@ -17,6 +17,16 @@ export default function SearchBar(props: SearchBarProps) {
     const [url, setUrl] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
     const [noRecipe, setNoRecipe] = useState<boolean>(false); // if no recipe found, show error message
+    const [lastUrl, setLastUrl] = useState<string>("");
+    if (typeof window !== "undefined") {
+        window.onbeforeunload = () => {
+            localStorage.setItem("lastUrl", url);
+        }
+    }
+    if (typeof window !== "undefined" && localStorage.getItem("lastUrl") !== null && lastUrl === "") {
+        setLastUrl(localStorage.getItem("lastUrl") as string);
+        setUrl(localStorage.getItem("lastUrl") as string);
+    }
 
 
 
@@ -43,6 +53,7 @@ export default function SearchBar(props: SearchBarProps) {
                     });
                 }
                 props.setRecipe({
+                    servingSize: props.recipe.servingSize,
                     ingredients: ingredients,
                     changeQuantity: props.recipe.changeQuantity
                 });
@@ -51,6 +62,7 @@ export default function SearchBar(props: SearchBarProps) {
                 setTimeout(() => {
                     document.getElementById("recipe")?.scrollIntoView({behavior: "smooth"})
                 }, 50)
+                localStorage.setItem("lastUrl", url);
             } catch (error) {
                 setError(true);
                 props.setLoading(false);
@@ -77,6 +89,7 @@ export default function SearchBar(props: SearchBarProps) {
     return (
         <>
             <InputBase
+                value={url}
                 className="searchbar"
                 type="text" 
                 placeholder="Enter URL to recipe" 
