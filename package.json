@@ -21,6 +21,7 @@
     "install": "^0.13.0",
     "is-valid-http-url": "^1.0.3",
     "next": "14.0.4",
+    "node-fetch": "^2.6.7",
     "npm": "^10.2.5",
     "react": "^18",
     "react-dom": "^18",
