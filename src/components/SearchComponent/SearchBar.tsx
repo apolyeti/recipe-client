@@ -19,6 +19,8 @@ export default function SearchBar(props: SearchBarProps) {
     const [error, setError] = useState<boolean>(false);
     const [noRecipe, setNoRecipe] = useState<boolean>(false); // if no recipe found, show error message
     const [lastUrl, setLastUrl] = useState<string>("");
+
+    // set last url to be the last url searched by the user, if it exists
     if (typeof window !== "undefined") {
         window.onbeforeunload = () => {
             localStorage.setItem("lastUrl", url);
@@ -28,8 +30,7 @@ export default function SearchBar(props: SearchBarProps) {
         setLastUrl(localStorage.getItem("lastUrl") as string);
         setUrl(localStorage.getItem("lastUrl") as string);
     }
-
-
+    
 
     const handleSearch = async () => {
         if (isRunning) {
@@ -79,6 +80,7 @@ export default function SearchBar(props: SearchBarProps) {
         setIsRunning(false);
     }
 
+    /* HELPERS FOR HANDLESEARCH AND INPUT COMPONENTS */
     function isValidUrl(url: string) {
         try {
             new URL(url);
