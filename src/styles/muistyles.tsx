@@ -1,25 +1,18 @@
-const styles = {
-    searchInputBase: {
-        width: "100%",
-                height: "100%",
-                fontSize: "1.5rem",
-                borderRadius: "1rem",
-                border: "1px solid black",
-                padding: "1rem",
-                boxSizing: "border-box",
-                "&:focus": {
-                    outline: "none",
-                }
-    },
-    searchButton : {
-        "&:hover": {
-            color: "black"
-        },
-        "&:disabled": {
-            color: "gray"
-        }
-    }
-}
+import { createTheme } from "@mui/material/styles";
+import { Fredoka } from "next/font/google";
 
-export default styles;
+export const fredoka = Fredoka({
+  subsets: ["latin"],
+});
+
+// Create a theme instance.
+const theme = createTheme({
+    typography : {
+        allVariants: {
+            fontFamily: fredoka.style.fontFamily,
+        },
+    },
+});
+
+export default theme;
 

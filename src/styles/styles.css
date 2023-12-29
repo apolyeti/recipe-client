@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Fredoka', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.googleapis.com/css2?family=Fredoka&family=Jost:wght@300&display=swap);
+}
+
 body {
     background-color: #1e1e2e;
     color: #000;
