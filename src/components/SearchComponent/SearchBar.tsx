@@ -15,6 +15,7 @@ interface SearchBarProps {
 export default function SearchBar(props: SearchBarProps) {
     // make search button be inside search bar
     const [url, setUrl] = useState<string>("");
+    const [isRunning, setIsRunning] = useState<boolean>(false); // if true, disable search button
     const [error, setError] = useState<boolean>(false);
     const [noRecipe, setNoRecipe] = useState<boolean>(false); // if no recipe found, show error message
     const [lastUrl, setLastUrl] = useState<string>("");
@@ -31,6 +32,10 @@ export default function SearchBar(props: SearchBarProps) {
 
 
     const handleSearch = async () => {
+        if (isRunning) {
+            return;
+        }
+        setIsRunning(true);
         if (isValidUrl(url)) {
             console.log("valid url")
             try {
@@ -71,6 +76,7 @@ export default function SearchBar(props: SearchBarProps) {
         } else {
             setError(true);
         }
+        setIsRunning(false);
     }
 
     function isValidUrl(url: string) {
