@@ -12,7 +12,7 @@ export default function Recipe(props: RecipeProps) {
     // 4 ingredient per row, then new row
     const { ingredients, servingSize, changeQuantity } = props.Recipe;
     const [originalServing, setOriginalServing] = useState<number>(servingSize);
-
+    let offset = 0.5;
     useEffect(() => {
         setOriginalServing(servingSize);
     }, [servingSize])
@@ -60,7 +60,6 @@ export default function Recipe(props: RecipeProps) {
             />
             </Stack>
             {rows.map((row, index) => {
-                let offset = 0.5;
                 return (
                     <Stack
                         direction={"row"}

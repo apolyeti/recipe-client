@@ -36,6 +36,7 @@ export default function SearchBar(props: SearchBarProps) {
         if (isRunning) {
             return;
         }
+        props.setRecipe({ingredients: [], servingSize: 0, changeQuantity: () => {}});
         setIsRunning(true);
         if (isValidUrl(url)) {
             console.log("valid url")
