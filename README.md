@@ -9,3 +9,6 @@ This was a very simple Next.js project, so very minimal technologies were used i
 ## BACKEND REPO
 
 Most of my work was actually done [here](https://github.com/apolyeti/recipe-app), this was my first time writing backend in Golang let alone coding a single line of code in Golang, so it was definitely a learning experience for me.
+
+![demo1](https://cdn.discordapp.com/attachments/685747553815625760/1191201064570073178/image.png?ex=65a49371&is=65921e71&hm=44b950b3f6c5576959b8b95424771003dff2469bc2071c449761686151617459&)
+![demo2](https://cdn.discordapp.com/attachments/685747553815625760/1191201284947181608/image.png?ex=65a493a5&is=65921ea5&hm=18f4967042a68372c7e87193914633ad43f852d23d4981b851a00d2f08a328b1&)
