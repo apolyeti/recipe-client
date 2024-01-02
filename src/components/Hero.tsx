@@ -1,5 +1,4 @@
 import Stack from "@mui/material/Stack"
-import { LinearProgress, Tab } from "@mui/material"
 import SearchBar from "@/components/SearchComponent/SearchBar"
 import Heading from "@components/Heading"
 import RecipeComponent from "@/components/Recipe/Recipe"
