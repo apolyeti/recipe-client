@@ -18,6 +18,9 @@ export default function Hero() {
         ingredients: [],
         servingSize: 0,
         changeQuantity: (newQuantity: number) => {
+            if (!newQuantity || newQuantity < 1) {
+                newQuantity = 1;
+            }
             setRecipe({
                 ...recipe,
                 servingSize: newQuantity,
@@ -33,6 +36,9 @@ export default function Hero() {
 
     const [loading, setLoading] = useState<boolean>(false);
 
+    const [recipeAmounts, setRecipeAmounts] = useState<number[]>([]);
+
+
     return (
         <>
         <Box
@@ -45,7 +51,7 @@ export default function Hero() {
             }}
         >
             <Heading />
-                <SearchBar recipe={recipe} setRecipe={setRecipe} setLoading={setLoading}/>
+                <SearchBar recipe={recipe} setRecipe={setRecipe} setLoading={setLoading} recipeAmounts={recipeAmounts} setRecipeAmounts={setRecipeAmounts}/>
                 {loading && 
                     <Box sx={{width : "45%", padding: "20px"}} >
                         <Stack direction={"column"}>
@@ -66,7 +72,7 @@ export default function Hero() {
                             justifyContent: "center",
                         }}
                     >
-                        <RecipeComponent Recipe={recipe}/>
+                        <RecipeComponent Recipe={recipe} recipeAmounts={recipeAmounts} setRecipeAmounts={setRecipeAmounts}/>
                     </Box>
                 }   
         </>

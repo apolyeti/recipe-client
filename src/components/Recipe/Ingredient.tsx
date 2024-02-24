@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 interface IngredientProps {
     ingredient: Ingredient;
     fadeOffset: number;
+    ingredientAmount: number;
 }
 
 export default function Ingredient(props: IngredientProps) {
@@ -36,9 +37,9 @@ export default function Ingredient(props: IngredientProps) {
             />
             <CardContent>
                 <Typography variant="body1" color="text.primary" fontSize={"2rem"}>
-                    {props.ingredient.quantity}
+                    {props.ingredientAmount}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" color="text.secondary" fontSize={"1.5rem"}>
                     {props.ingredient.unit.toLowerCase()}
                 </Typography>
             </CardContent>

@@ -5,11 +5,14 @@ import { Snackbar, Alert } from '@mui/material';
 import { getIngredients } from '@/utils/api';
 import { useState } from 'react';
 import { TIMEOUT } from "dns";
+import { preconnect } from "react-dom";
 
 interface SearchBarProps {
     recipe: Recipe;
     setRecipe: (recipe: Recipe) => void;
     setLoading: (loading: boolean) => void;
+    recipeAmounts: number[];
+    setRecipeAmounts: (amounts: number[]) => void;
 }
 
 export default function SearchBar(props: SearchBarProps) {
@@ -47,10 +50,11 @@ export default function SearchBar(props: SearchBarProps) {
                     setNoRecipe(true);
                     return;
                 }
-                const ingredients: Ingredient[] = [];
+                let ingredients: Ingredient[] = [];
                 // response has field called recipe, which is an array of ingredients
                 // each ingredient has fields: name, quantity, measurement
                 // foreach is not possible on response.recipe because it is not an array
+                let ingredients_temp = [];
                 for (let i = 0; i < response.recipe.length; i++) {
                     const ingredient = response.recipe[i];
                     ingredients.push({
@@ -58,7 +62,12 @@ export default function SearchBar(props: SearchBarProps) {
                         quantity: ingredient.quantity,
                         unit: ingredient.measurement
                     });
+                    ingredients_temp.push(ingredient.quantity);
+
+                    // add amount to recipeAmounts
+                    // but since recipeAmounts is useState, we need to use setRecipeAmounts
                 }
+                props.setRecipeAmounts(ingredients_temp);
                 props.setRecipe({
                     servingSize: props.recipe.servingSize,
                     ingredients: ingredients,

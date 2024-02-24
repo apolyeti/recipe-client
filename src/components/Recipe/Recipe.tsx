@@ -6,21 +6,33 @@ import { useState, useEffect} from 'react';
 
 interface RecipeProps {
     Recipe : Recipe;
+    setRecipeAmounts: (amounts: number[]) => void;
+    recipeAmounts: number[];
 }
 
 export default function Recipe(props: RecipeProps) {
     // 4 ingredient per row, then new row
     const { ingredients, servingSize, changeQuantity } = props.Recipe;
-    const [originalServing, setOriginalServing] = useState<number>(servingSize);
+    const [currentServingSize, setServingSize] = useState<number>(servingSize);
+    const originalServing = servingSize || 1;
     let offset = 0.5;
-    useEffect(() => {
-        setOriginalServing(servingSize);
-    }, [servingSize])
+    // useEffect(() => {
+    //     if (originalServing == 0) {
+    //         setOriginalServing(1);
+    //     }
+    // }, [props.recipeAmounts, originalServing])
 
     const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value)
         const newQuantity = parseInt(event.target.value);
-        setOriginalServing(newQuantity);
-        changeQuantity(newQuantity);
+        if (!newQuantity || newQuantity < 1) {
+
+            setServingSize(1);
+            return;
+        }
+        setServingSize(newQuantity);
+        const multiplier = newQuantity / originalServing;
+        props.setRecipeAmounts(ingredients.map((ingredient) => ingredient.quantity * multiplier));
     }
 
 
@@ -51,12 +63,20 @@ export default function Recipe(props: RecipeProps) {
             <Typography className="serving">
                 serving size:
             </Typography>
-            <InputBase
-                value={originalServing}
+            <input
+                value={currentServingSize}
                 onChange={(event) => {
-                    const newQuantity = parseInt(event.target.value);
-                    props.Recipe.changeQuantity(newQuantity);
+                    handleQuantityChange(event);
                 }}
+                type='number'
+                // sx={{
+                //     width: "3rem",
+                //     padding: "0.5rem",
+                //     borderRadius: "0.5rem",
+                //     color: "#f4dbd6",
+                //     fontSize: "1.5rem",
+
+                // }}
             />
             </Stack>
             {rows.map((row, index) => {
@@ -66,11 +86,12 @@ export default function Recipe(props: RecipeProps) {
                         spacing={2}
                         key={index}
                     >
-                        {row.map((ingredient) => {
+                        {row.map((ingredient, i) => {
                             offset+=0.1;
                             return (
                                 <IngredientComponent
                                     ingredient={ingredient}
+                                    ingredientAmount={props.recipeAmounts[i]}
                                     key={ingredient.name}
                                     fadeOffset={offset}
                                 />
