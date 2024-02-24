@@ -69,7 +69,7 @@ export default function SearchBar(props: SearchBarProps) {
                 }
                 props.setRecipeAmounts(ingredients_temp);
                 props.setRecipe({
-                    servingSize: props.recipe.servingSize,
+                    servingSize: response.serving_size,
                     ingredients: ingredients,
                     changeQuantity: props.recipe.changeQuantity
                 });

@@ -37,7 +37,7 @@ export default function Ingredient(props: IngredientProps) {
             />
             <CardContent>
                 <Typography variant="body1" color="text.primary" fontSize={"2rem"}>
-                    {props.ingredientAmount}
+                    {typeof props.ingredientAmount === "number" ? props.ingredientAmount.toFixed(2) : props.ingredientAmount}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" fontSize={"1.5rem"}>
                     {props.ingredient.unit.toLowerCase()}

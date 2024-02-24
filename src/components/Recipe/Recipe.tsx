@@ -13,7 +13,7 @@ interface RecipeProps {
 export default function Recipe(props: RecipeProps) {
     // 4 ingredient per row, then new row
     const { ingredients, servingSize, changeQuantity } = props.Recipe;
-    const [currentServingSize, setServingSize] = useState<number>(servingSize);
+    const [currentServingSize, setServingSize] = useState<string>(servingSize + ""|| "1");
     const originalServing = servingSize || 1;
     let offset = 0.5;
     // useEffect(() => {
@@ -24,13 +24,21 @@ export default function Recipe(props: RecipeProps) {
 
     const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.value)
-        const newQuantity = parseInt(event.target.value);
-        if (!newQuantity || newQuantity < 1) {
-
-            setServingSize(1);
+        // cheeck if is a number or a . or  empty, if not, return early
+        if (event.target.value.length > 0 && isNaN(parseFloat(event.target.value))) {
             return;
         }
-        setServingSize(newQuantity);
+        // check if ends in a . and if so, return function early so that the user can continue typing
+        if (event.target.value.endsWith(".")) {
+            setServingSize(event.target.value);
+            return;
+        }
+        const newQuantity = parseFloat(event.target.value);
+        if (!newQuantity || newQuantity  == 0) {
+            setServingSize(event.target.value);
+            return;
+        }
+        setServingSize(newQuantity + "");
         const multiplier = newQuantity / originalServing;
         props.setRecipeAmounts(ingredients.map((ingredient) => ingredient.quantity * multiplier));
     }
@@ -63,20 +71,19 @@ export default function Recipe(props: RecipeProps) {
             <Typography className="serving">
                 serving size:
             </Typography>
-            <input
+            <InputBase
+                //move downa little
                 value={currentServingSize}
-                onChange={(event) => {
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     handleQuantityChange(event);
                 }}
-                type='number'
-                // sx={{
-                //     width: "3rem",
-                //     padding: "0.5rem",
-                //     borderRadius: "0.5rem",
-                //     color: "#f4dbd6",
-                //     fontSize: "1.5rem",
-
-                // }}
+                sx={{
+                    width: "10rem",
+                    color: "#f4dbd6",
+                    fontSize: "3rem",
+                    // move down a little
+                    transform: "translateY(0.3rem)",
+                }}
             />
             </Stack>
             {rows.map((row, index) => {
