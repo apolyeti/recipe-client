@@ -3,9 +3,11 @@ import SearchBar from "@/components/SearchComponent/SearchBar"
 import Heading from "@components/Heading"
 import RecipeComponent from "@/components/Recipe/Recipe"
 import Loading from "@/components/Loading"
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { useState } from "react"
 import Box from '@mui/material/Box';
 import type { Recipe } from "@/utils/types"
+import { IconButton } from "@mui/material"
 
 export default function Hero() {
 
@@ -52,6 +54,29 @@ export default function Hero() {
         >
             <Heading />
                 <SearchBar recipe={recipe} setRecipe={setRecipe} setLoading={setLoading} recipeAmounts={recipeAmounts} setRecipeAmounts={setRecipeAmounts}/>
+                <IconButton
+                    onClick={() => window.open("https://github.com/apolyeti/recipe-client")}
+                    sx={{
+                        position: "absolute",
+                        transform: "scale(1.5)",
+                        transition: "transform 0.2s ease-in-out",
+                        border: "0px",
+                        shadow: "0px",
+                        color: "#f2d5cf",
+                        top: "1rem",
+                        right: "1rem",
+                        "&:hover": {
+                            color: "#f2cdcf",
+                            transform: "scale(1.6)",
+                            transition: "transform 0.2s ease-in-out",
+                            cursor: "pointer",
+                            shadow: "0px",
+                            border: "0px",
+                        }
+                    }}
+                >
+                    <GitHubIcon />
+                </IconButton>
                 {loading && 
                     <Box sx={{width : "45%", padding: "20px"}} >
                         <Stack direction={"column"}>

@@ -11,16 +11,10 @@ interface RecipeProps {
 }
 
 export default function Recipe(props: RecipeProps) {
-    // 4 ingredient per row, then new row
     const { ingredients, servingSize, changeQuantity } = props.Recipe;
     const [currentServingSize, setServingSize] = useState<string>(servingSize + ""|| "1");
     const originalServing = servingSize || 1;
     let offset = 0.5;
-    // useEffect(() => {
-    //     if (originalServing == 0) {
-    //         setOriginalServing(1);
-    //     }
-    // }, [props.recipeAmounts, originalServing])
 
     const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.value)
