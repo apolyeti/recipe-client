@@ -11,11 +11,6 @@ import { IconButton } from "@mui/material"
 
 export default function Hero() {
 
-    // make changequantity function for recipe type
-
-    // recipe fields:
-    // ingredients: Ingredient[];
-
     const [recipe, setRecipe] = useState<Recipe>({
         ingredients: [],
         servingSize: 0,
